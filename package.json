@@ -1,0 +1,36 @@
+{
+  "name": "nodejs-aoc",
+  "version": "1.0.0",
+  "description": "Advents of Code 2020 solved in NodeJS",
+  "main": "aoc.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0"
+  },
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "minimist": "^1.2.5"
+  },
+  "scripts": {
+    "run": "node aoc.js",
+    "test": "node aoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayatus/nodejs-aoc.git"
+  },
+  "type": "module",
+  "keywords": [
+    "nodejs",
+    "AdventsOfCode",
+    "learning"
+  ],
+  "author": "Jorge Sancho Royo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rayatus/nodejs-aoc/issues"
+  },
+  "homepage": "https://github.com/rayatus/nodejs-aoc#readme"
+}
