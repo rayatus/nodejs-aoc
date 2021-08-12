@@ -17,7 +17,9 @@ let dayToRun  = args["day"]  || _DAY_NOT_DEFINED
 let part      = args["part"] || _PART_NOT_DEFINED
 
 //Check if arguments are correct
-if ( isValidYear(yearToRun) == false || isValidDay(dayToRun) == false || isValidPart(part) == false ){
+if ( ( yearToRun != _YEAR_NOT_DEFINED  && isValidYear(yearToRun) == false ) 
+  || ( dayToRun  != _DAY_NOT_DEFINED   && isValidDay(dayToRun)   == false ) 
+  || ( part      != _PART_NOT_DEFINED  && isValidPart(part)      == false ) ) {
   showDocumentation() 
 } else {
   await executeAoC(yearToRun, dayToRun, part)
@@ -28,13 +30,15 @@ if ( isValidYear(yearToRun) == false || isValidDay(dayToRun) == false || isValid
 async function executeAoC(yearToRun, dayToRun, part) {
   const dir = await fs.promises.opendir('./');
   for await (const dirent of dir) {
-    if (dirent.name == yearToRun || yearToRun == _YEAR_NOT_DEFINED ) {
-      console.log(`Executing problems from AoC ${yearToRun}`)
-      fs.readdir(`./${yearToRun}/problems`, (err, files) => {
-        files.forEach( file => {
-          if ( file.slice(3,1) == dayToRun || dayToRun == _DAY_NOT_DEFINED ) 
-            run( yearToRun, file, part)
-        })
+    if ( isValidYear(dirent.name) == true && (dirent.name == yearToRun || yearToRun == _YEAR_NOT_DEFINED ) ){
+      console.log(`Executing problems from AoC ${dirent.name}`)
+      fs.readdir(`./${dirent.name}/problems`, (err, files) => {
+        if (!err){
+          files.forEach( file => {
+            if ( file.slice(3,1) == dayToRun || dayToRun == _DAY_NOT_DEFINED ) 
+              run( dirent.name, file, part)
+          })
+        }
       })
     }
   }
@@ -71,7 +75,7 @@ async function run(yearToRun, dayToRun, part){
     }
         
   } catch (error) {
-    console.error(`Something wrong happend while executing solutions of year='${yearToRun}', day='${dayToRun}', part='${part}' : ${error}`)
+    console.error(`Something wrong happend while executing solutions for year='${yearToRun}', day='${dayToRun}', part='${part}' : ${error}`)
   } 
 }
 
@@ -79,7 +83,7 @@ async function run(yearToRun, dayToRun, part){
 function isValidYear(year){
   let isValid = false
   if ( isNaN(year) == true ) return isValidPart
-  if ( ( year >= 2020 && year <= 9999 ) || year == _YEAR_NOT_DEFINED ) isValid = true
+  if ( ( year >= 2020 && year <= 9999 ) ) isValid = true
   return isValid
 }
 
@@ -87,7 +91,7 @@ function isValidYear(year){
 function isValidDay(day){
   let isValid = false
   if ( isNaN(day) == true ) return isValidPart
-  if ( ( day > 0 && day <= 31 )  || day == _DAY_NOT_DEFINED ) isValid = true
+  if ( ( day > 0 && day <= 31 ) ) isValid = true
   return isValid
 }
 
@@ -95,7 +99,7 @@ function isValidDay(day){
 function isValidPart(part){
   let isValid = false
   if ( isNaN(part) == true ) return isValidPart
-  if ( ( part > 0 && part < 3 ) || part == _PART_NOT_DEFINED )  isValid = true
+  if ( ( part > 0 && part < 3 ) )  isValid = true
   return isValid
 }
 
