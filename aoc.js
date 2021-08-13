@@ -49,7 +49,7 @@ async function executeAoC(yearToRun, dayToRun, part) {
             let inputPath     = `${inputFolder}/${inputFilename}`
 
             if ( isValidDay(day) && ( day == dayToRun || dayToRun == _DAY_NOT_DEFINED ) )
-              fs.readFile(inputPath, (err, inputData) => {
+              fs.readFile(inputPath, 'utf8', (err, inputData) => {
                 if (err){
                   console.error(`Error while reading contents of input file:${inputPath}`)
                   console.error(err)
