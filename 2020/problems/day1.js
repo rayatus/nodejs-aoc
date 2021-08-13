@@ -1,10 +1,10 @@
 
-const solve_part_1 = ()=>{
+const solve_part_1 = (inputData)=>{
   return "this is day 1, part 1"
 
 }
 
-const solve_part_2 = ()=>{
+const solve_part_2 = (inputData)=>{
   return "this is day 1, part 2"
 }
 

@@ -32,11 +32,31 @@ async function executeAoC(yearToRun, dayToRun, part) {
   for await (const dirent of dir) {
     if ( isValidYear(dirent.name) == true && (dirent.name == yearToRun || yearToRun == _YEAR_NOT_DEFINED ) ){
       console.log(`Executing problems from AoC ${dirent.name}`)
-      fs.readdir(`./${dirent.name}/problems`, (err, files) => {
-        if (!err){
-          files.forEach( file => {
-            if ( file.slice(3,1) == dayToRun || dayToRun == _DAY_NOT_DEFINED ) 
-              run( dirent.name, file, part)
+
+      let yearFolder     = `./${dirent.name}`
+      let problemFolder  = `${yearFolder}/problems`
+      let inputFolder    = `${yearFolder}/input`
+
+      fs.readdir(problemFolder, (err, files) => {
+        if (err){
+          console.error(`Error while reading contents of path:${path}`)
+          console.error(err)
+        }else{
+          files.forEach( problemFile => {
+
+            let day           = problemFile.slice(3,-3)  // day1.js ==> 1
+            let inputFilename = problemFile.slice(0,-3)  // day1.js ==> day1
+            let inputPath     = `${inputFolder}/${inputFilename}`
+
+            if ( isValidDay(day) && ( day == dayToRun || dayToRun == _DAY_NOT_DEFINED ) )
+              fs.readFile(inputPath, (err, inputData) => {
+                if (err){
+                  console.error(`Error while reading contents of input file:${inputPath}`)
+                  console.error(err)
+                }else{
+                  run( `${problemFolder}/${problemFile}`, part, inputData )
+                }                
+              })
           })
         }
       })
@@ -45,11 +65,10 @@ async function executeAoC(yearToRun, dayToRun, part) {
 }
 
 //Imports the solutions for the given year/Day
-async function getAoCModule(yearToRun, dayToRun){
-  const moduleName =  `./${yearToRun}/problems/${dayToRun}`
-  
+async function getAoCModule(modulePath){
+    
   try{
-     const aocModule = await import(moduleName)
+     const aocModule = await import(modulePath)
      return aocModule
   } catch (error) {
     console.error(`Something wrong happend while importing package '${moduleName}' : ${error}`)
@@ -57,25 +76,25 @@ async function getAoCModule(yearToRun, dayToRun){
 }
 
 //Executes corresponding part, or both, for a given day of the given year
-async function run(yearToRun, dayToRun, part){
+async function run(modulePath, part, input){
  
   try{
-    const aocModule = await getAoCModule(yearToRun, dayToRun)
+    const aocModule = await getAoCModule(modulePath)
     
-    console.log(`Solving ${dayToRun}`)
+    console.log(`Solving ${modulePath}`)
     if (part == 1 || part == _PART_NOT_DEFINED){
       console.log('Solving part 1')
-      const result1 = aocModule.solve_part_1()
+      const result1 = aocModule.solve_part_1(input)
       console.log(`Solution for part 1 => ${result1}`)
     }
     if (part == 2 || part == _PART_NOT_DEFINED){
       console.log('Solving part 2')
-      const result2 = aocModule.solve_part_2()
+      const result2 = aocModule.solve_part_2(input)
       console.log(`Solution for part 2 => ${result2}`)
     }
         
   } catch (error) {
-    console.error(`Something wrong happend while executing solutions for year='${yearToRun}', day='${dayToRun}', part='${part}' : ${error}`)
+    console.error(`Something wrong happend while executing solutions for '${modulePath}', part='${part}' : ${error}`)
   } 
 }
 
