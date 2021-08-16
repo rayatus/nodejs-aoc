@@ -1,23 +1,19 @@
 
 function adjustInputData (inputData){
-  return inputData.split('\r\n')
+  return inputData.split('\r\n').map(x => parseInt(x))
 }
 
 /*
  Let's find 2 numbers that sum 2020 and return their multiplication 
 */
 const solve_part_1 = (inputData)=>{
-  let data = adjustInputData(inputData)
-  
+  const data = adjustInputData(inputData)
+
   for (let i = 0; i < data.length ; i++){
-    let element1 = Number(data[i])
-
-    for (let j = i+1; j < data.length ; j++){
-      let element2 = Number(data[j])
-
-      if ( ( element1 + element2 ) == 2020 )
-        return element1 * element2
-    }
+    let element1 = data[i]
+    let element2 = data.find(x => x + element1 === 2020)
+    if ( element2 != undefined )
+      return element1 * element2
   }
 }
 
@@ -29,16 +25,16 @@ const solve_part_2 = (inputData)=>{
   let data = adjustInputData(inputData)
 
   for (let i = 0; i < data.length ; i++){
-    let element1 = Number(data[i])
+    let element1 = data[i]
 
     for (let j = i+1; j < data.length ; j++){
-      let element2 = Number(data[j])
+      let element2 = data[j]
 
       for (let k = j+1; k < data.length ; k++){
-        let element3 = Number(data[k])
+        let element3 = data[k]
 
-        if ( ( element1 + element2 + element3 ) == 2020 )
-        return element1 * element2 * element3
+        if ( ( element1 + element2 + element3 ) === 2020 )
+          return element1 * element2 * element3
 
       }       
     }
