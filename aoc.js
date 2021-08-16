@@ -71,7 +71,7 @@ async function getAoCModule(modulePath){
      const aocModule = await import(modulePath)
      return aocModule
   } catch (error) {
-    console.error(`Something wrong happend while importing package '${moduleName}' : ${error}`)
+    console.error(`Something wrong happend while importing package '${modulePath}' : ${error}`)
   } 
 }
 
