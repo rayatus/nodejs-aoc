@@ -49,14 +49,13 @@ async function executeAoC(yearToRun, dayToRun, part) {
             let inputPath     = `${inputFolder}/${inputFilename}`
 
             if ( isValidDay(day) && ( day == dayToRun || dayToRun == _DAY_NOT_DEFINED ) )
-              fs.readFile(inputPath, 'utf8', (err, inputData) => {
-                if (err){
-                  console.error(`Error while reading contents of input file:${inputPath}`)
-                  console.error(err)
-                }else{
-                  run( `${problemFolder}/${problemFile}`, part, inputData )
-                }                
-              })
+              try {
+                const inputData = fs.readFileSync(inputPath, 'utf8')  
+                run( `${problemFolder}/${problemFile}`, part, inputData )
+              } catch (error) {
+                console.error(`Error while reading contents of input file:${inputPath}`)
+                console.error(err)
+              }
           })
         }
       })
@@ -83,12 +82,10 @@ async function run(modulePath, part, input){
     
     console.log(`Solving ${modulePath}`)
     if (part == 1 || part == _PART_NOT_DEFINED){
-      console.log('Solving part 1')
       const result1 = aocModule.solve_part_1(input)
       console.log(`Solution for part 1 => ${result1}`)
     }
     if (part == 2 || part == _PART_NOT_DEFINED){
-      console.log('Solving part 2')
       const result2 = aocModule.solve_part_2(input)
       console.log(`Solution for part 2 => ${result2}`)
     }
