@@ -1,13 +1,8 @@
-
-function adjustInputData (inputData){
-  return inputData.split('\r\n').map(x => parseInt(x))
-}
-
 /*
  Let's find 2 numbers that sum 2020 and return their multiplication 
 */
-const solve_part_1 = (inputData)=>{
-  const data = adjustInputData(inputData)
+const solve_part_1 = (inputData, inputUtils)=>{
+  let data = inputUtils.inputDataToInt(inputData)
 
   for (let i = 0; i < data.length ; i++){
     let element1 = data[i]
@@ -20,9 +15,9 @@ const solve_part_1 = (inputData)=>{
 /*
  Let's find 3 numbers that sum 2020 and return their multiplication
 */  
-const solve_part_2 = (inputData)=>{
+const solve_part_2 = (inputData,inputUtils)=>{
   
-  let data = adjustInputData(inputData)
+  let data = inputUtils.inputDataToInt(inputData)
 
   for (let i = 0; i < data.length ; i++){
     let element1 = data[i]

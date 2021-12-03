@@ -15,14 +15,19 @@ const args = minimist(process.argv.slice(2))
 let yearToRun = args["year"] || _YEAR_NOT_DEFINED
 let dayToRun  = args["day"]  || _DAY_NOT_DEFINED
 let part      = args["part"] || _PART_NOT_DEFINED
+let help      = args["help"]
 
-//Check if arguments are correct
-if ( ( yearToRun != _YEAR_NOT_DEFINED  && isValidYear(yearToRun) == false ) 
-  || ( dayToRun  != _DAY_NOT_DEFINED   && isValidDay(dayToRun)   == false ) 
-  || ( part      != _PART_NOT_DEFINED  && isValidPart(part)      == false ) ) {
-  showDocumentation() 
-} else {
-  await executeAoC(yearToRun, dayToRun, part)
+if (help !== undefined){
+  showDocumentation()
+}else{
+  //Check if arguments are correct
+  if ( ( yearToRun != _YEAR_NOT_DEFINED  && isValidYear(yearToRun) == false ) 
+    || ( dayToRun  != _DAY_NOT_DEFINED   && isValidDay(dayToRun)   == false ) 
+    || ( part      != _PART_NOT_DEFINED  && isValidPart(part)      == false ) ) {
+    showDocumentation() 
+  } else {
+    await executeAoC(yearToRun, dayToRun, part)
+  }
 }
 
 
@@ -78,21 +83,29 @@ async function getAoCModule(modulePath){
 async function run(modulePath, part, input){
  
   try{
-    const aocModule = await getAoCModule(modulePath)
-    
-    console.log(`Solving ${modulePath}`)
-    if (part == 1 || part == _PART_NOT_DEFINED){
-      const result1 = aocModule.solve_part_1(input)
-      console.log(`Solution for part 1 => ${result1}`)
-    }
-    if (part == 2 || part == _PART_NOT_DEFINED){
-      const result2 = aocModule.solve_part_2(input)
-      console.log(`Solution for part 2 => ${result2}`)
-    }
-        
-  } catch (error) {
-    console.error(`Something wrong happend while executing solutions for '${modulePath}', part='${part}' : ${error}`)
-  } 
+    const inputUtil = await import("./lib/inputUtils.js")
+
+    try{
+      const aocModule = await getAoCModule(modulePath)
+      
+      
+      console.log(`Solving ${modulePath}`)
+      if (part == 1 || part == _PART_NOT_DEFINED){
+        const result1 = aocModule.solve_part_1(input, inputUtil)
+        console.log(`Solution for part 1 => ${result1}`)
+      }
+      if (part == 2 || part == _PART_NOT_DEFINED){
+        const result2 = aocModule.solve_part_2(input, inputUtil)
+        console.log(`Solution for part 2 => ${result2}`)
+      }
+          
+    } catch (error) {
+      console.error(`Something wrong happend while executing solutions for '${modulePath}', part='${part}' : ${error}`)
+    } 
+
+  } catch(error){
+    console.error(`Something wrong happend while importing inputUtils.js : ${error}`)
+  }
 }
 
 //Verifies if a given Year has a correct value
@@ -126,4 +139,5 @@ function showDocumentation(){
   console.log(" --year: specifies which year to execute. If no year is provided all of them will be executed. (i.e --year 2020) ")
   console.log(" --day: specifies exactly which problem to execute. If no day is provided all of them will be executed (i.e. --day 1) ")
   console.log(" --part: specifies exactly which problem's part to execute, Advents of Code consists of 2 parts per each day so allowed values are 1 and 2 (i.e. --part 2). If no part is provided all of them (1 and 2) are going to be executed")
+  console.log("\nFor instance aoc.js --year 2021 --day 1 --part 1")
 }
