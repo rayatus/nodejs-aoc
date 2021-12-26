@@ -15,7 +15,8 @@
   },
   "scripts": {
     "run": "node aoc.js",
-    "test": "node aoc.js --year 2021"
+    "test": "node aoc.js --year 2021",
+    "help": "node aoc.js --help"
   },
   "repository": {
     "type": "git",
