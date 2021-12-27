@@ -139,13 +139,13 @@ function showDocumentation() {
   console.log(" Please execute it as: aoc.js --year --day --part")
   console.log(" All following arguments are optional:")
   console.log(
-    " --year: specifies which year to execute. If no year is provided all of them will be executed. (i.e --year 2020) "
+    "\t --year: specifies which year to execute. If no year is provided all of them will be executed. (i.e --year 2020) "
   )
   console.log(
-    " --day: specifies exactly which problem to execute. If no day is provided all of them will be executed (i.e. --day 1) "
+    "\t --day: specifies exactly which problem to execute. If no day is provided all of them will be executed (i.e. --day 1) "
   )
   console.log(
-    " --part: specifies exactly which problem's part to execute, Advents of Code consists of 2 parts per each day so allowed values are 1 and 2 (i.e. --part 2). If no part is provided all of them (1 and 2) are going to be executed"
+    "\t --part: specifies exactly which problem's part to execute, Advents of Code consists of 2 parts per each day so allowed values are 1 and 2 (i.e. --part 2). If no part is provided all of them (1 and 2) are going to be executed"
   )
   console.log("\nFor instance aoc.js --year 2021 --day 1 --part 1")
 }
