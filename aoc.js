@@ -105,7 +105,7 @@ async function run(modulePath, part, input, inputUtil) {
 //Verifies if a given Year has a correct value
 function isValidYear(year) {
   let isValid = false
-  if (isNaN(year) == true) return isValidPart
+  if (isNaN(year) == true) isValid = false
   if (year >= 2020 && year <= 9999) isValid = true
   return isValid
 }
@@ -113,7 +113,7 @@ function isValidYear(year) {
 //Verifies if a given Day has a correct value
 function isValidDay(day) {
   let isValid = false
-  if (isNaN(day) == true) return isValidPart
+  if (isNaN(day) == true) isValid = false
   if (day > 0 && day <= 31) isValid = true
   return isValid
 }
@@ -121,7 +121,7 @@ function isValidDay(day) {
 //Verifies if a given Part has a correct value
 function isValidPart(part) {
   let isValid = false
-  if (isNaN(part) == true) return isValidPart
+  if (isNaN(part) == true) isValid = false
   if (part > 0 && part < 3) isValid = true
   return isValid
 }

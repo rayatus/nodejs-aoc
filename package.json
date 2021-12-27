@@ -1,7 +1,7 @@
 {
   "name": "nodejs-aoc",
   "version": "1.0.0",
-  "description": "Advents of Code 2020 solved in NodeJS",
+  "description": "Advents of Code solved in NodeJS",
   "main": "aoc.js",
   "directories": {
     "lib": "lib"
