@@ -3,7 +3,21 @@ import chai from "chai"
 const day = await import("../problems/day1.js")
 const inputUtils = await import("../../lib/inputUtils.js")
 const expect = chai.expect
-const inputData = `${199}\r\n${200}\r\n${208}\r\n${210}\r\n${200}\r\n${207}\r\n${240}\r\n${269}\r\n${260}\r\n${263}`
+const testUtil = await import("../../lib/testInputUtils.js")
+
+const inputData = new testUtil.TestData()
+  .addValueToTest(199)
+  .addValueToTest(200)
+  .addValueToTest(208)
+  .addValueToTest(210)
+  .addValueToTest(200)
+  .addValueToTest(200)
+  .addValueToTest(207)
+  .addValueToTest(240)
+  .addValueToTest(269)
+  .addValueToTest(260)
+  .addValueToTest(263)
+  .get()
 
 describe("Test AoC 2021 Day 1", () => {
   it("Part 1", () => {
