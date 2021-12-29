@@ -8,9 +8,8 @@ const solve_part_1 = (inputData, inputUtils) => {
   const data = inputUtils.inputDataToLines(inputData)
 
   data.forEach((element) => {
-    const instructions = element.split(" ")
-    const movement = instructions[0]
-    const magnitude = parseInt(instructions[1])
+    const movement = element.split(" ")[0]
+    const magnitude = parseInt(element.split(" ")[1])
 
     switch (movement) {
       case _FORWARD:
