@@ -29,14 +29,13 @@ const solve_part_1 = (inputData, inputUtils) => {
   }
 
   const data = inputUtils.inputDataToLines(inputData)
-  const length = data[0].length
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < data[0].length; i++) {
     gammaRate += `${mostCommonBitAtIndex(data, i)}`
     epsilonRate += `${leastCommonBitAtIndex(data, i)}`
   }
   //convert string representing binary to a proper integer
-  let gammaRateBin = parseInt(gammaRate, 2)
-  let epsilonRateBin = parseInt(epsilonRate, 2)
+  const gammaRateBin = parseInt(gammaRate, 2)
+  const epsilonRateBin = parseInt(epsilonRate, 2)
 
   return gammaRateBin * epsilonRateBin
 }
