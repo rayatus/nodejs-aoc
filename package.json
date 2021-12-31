@@ -17,8 +17,8 @@
   },
   "scripts": {
     "run": "node aoc.js",
-    "test": "node aoc.js --year 2021 --day 3",
-    "mocha": "mocha ./**/tests/*test.js",
+    "debug": "node aoc.js --year 2021 --day 4",
+    "test": "mocha ./**/tests/*test.js",
     "help": "node aoc.js --help"
   },
   "repository": {
