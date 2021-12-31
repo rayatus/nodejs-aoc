@@ -34,9 +34,9 @@ if (help !== undefined) {
 }
 
 //Some terminal format
-const error = chalk.red
-const info = chalk.blue
-const result = chalk.yellow
+const msgError = chalk.red
+const msgInfo = chalk.blue
+const msgResult = chalk.yellow
 
 //Executes corresponding exercises
 async function executeAoC(yearToRun, dayToRun, part) {
@@ -46,7 +46,7 @@ async function executeAoC(yearToRun, dayToRun, part) {
     const dir = fs.readdirSync("./")
     for (const dirContent of dir) {
       if (isValidYear(dirContent) == true && (dirContent == yearToRun || yearToRun == _YEAR_NOT_DEFINED)) {
-        console.log(`Executing AoC ${info(dirContent)}`)
+        console.log(`Executing AoC ${msgInfo(dirContent)}`)
 
         let yearFolder = `./${dirContent}`
         let problemFolder = `${yearFolder}/problems`
@@ -64,14 +64,14 @@ async function executeAoC(yearToRun, dayToRun, part) {
 
               run(`${problemFolder}/${file}`, part, inputData, inputUtil)
             } catch (error) {
-              console.error(error(`Error while reading contents of input file:${inputPath}`))
+              console.error(msgError(`Error while reading contents of input file:${inputPath}`))
               console.error(error)
             }
         })
       }
     }
   } catch (error) {
-    console.error(error(`Something wrong happend while importing inputUtils.js : ${error}`))
+    console.error(msgError(`Something wrong happend while importing inputUtils.js : ${error}`))
   }
 }
 
@@ -81,7 +81,7 @@ async function getAoCModule(modulePath) {
     const aocModule = await import(modulePath)
     return aocModule
   } catch (error) {
-    console.error(error(`Something wrong happend while importing package '${modulePath}' : ${error}`))
+    console.error(msgError(`Something wrong happend while importing package '${modulePath}' : ${error}`))
   }
 }
 
@@ -92,20 +92,20 @@ async function run(modulePath, part, input, inputUtil) {
   try {
     const aocModule = await getAoCModule(modulePath)
 
-    console.log(`Solving ${info(modulePath)}`)
+    console.log(`Solving ${msgInfo(modulePath)}`)
     if (part == 1 || part == _PART_NOT_DEFINED) {
       runPart = 1
       const result1 = aocModule.solve_part_1(input, inputUtil)
-      console.log(`Solution for part 1 => ${result(result1)}`)
+      console.log(`Solution for part 1 => ${msgResult(result1)}`)
     }
     if (part == 2 || part == _PART_NOT_DEFINED) {
       runPart = 2
       const result2 = aocModule.solve_part_2(input, inputUtil)
-      console.log(`Solution for part 2 => ${result(result2)}`)
+      console.log(`Solution for part 2 => ${msgResult(result2)}`)
     }
   } catch (error) {
     console.error(
-      error(`Something wrong happend while executing solutions for '${modulePath}', part='${runPart}' : ${error}`)
+      msgError(`Something wrong happend while executing solutions for '${modulePath}', part='${runPart}' : ${error}`)
     )
   }
 }
