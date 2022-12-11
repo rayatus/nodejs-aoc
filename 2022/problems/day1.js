@@ -31,6 +31,13 @@ const solve_part_1 = (inputData, inputUtils) => {
     }
   })
 
+  //Last Elve
+  if (currentElveCalories > maxCalories) {
+    console.debug(`so far it has the more calories`)
+    maxCalories = currentElveCalories
+    elveWithMoreCalories = currentElve
+  }
+
   console.debug(`>>> Elve #${elveWithMoreCalories} was the one carrying up to  ${maxCalories} calories`)
   return maxCalories
 }
