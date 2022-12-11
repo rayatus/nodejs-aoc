@@ -27,7 +27,7 @@ const solve_part_1 = (inputData, inputUtils) => {
   let score = null
 
   //this object contains our score per each round possibility
-  //taking into account which was our 'shape' (8)1st number) and if we won or not (second number)
+  //taking into account which was our 'shape' (1st number) and if we won or not (second number)
   const pointsRule = {
     A: {
       X: 1 + 3,
