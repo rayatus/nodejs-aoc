@@ -16,9 +16,9 @@
     "mocha": "^9.1.3"
   },
   "scripts": {
-    "run": "node aoc.js",
-    "debug": "node aoc.js --year 2022 --day 2",
-    "test": "mocha ./2022/tests/day2_test.js",
+    "runAll": "node aoc.js",
+    "run": "node aoc.js --year 2022 --day 3",
+    "test": "mocha ./2022/tests/day3_test.js",
     "allTests": "mocha ./**/tests/*test.js",
     "help": "node aoc.js --help"
   },
