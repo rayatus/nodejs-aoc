@@ -5,14 +5,14 @@ class BingoNumber {
   #bingoCol = new BingoNumberArray()
 
   constructor(number) {
-    this.#isNumberValid(number)
+    this.isNumberValid(number)
     this.#number = parseInt(number)
   }
   get number() {
     return this.#number
   }
   set number(number) {
-    this.#isNumberValid(number)
+    this.isNumberValid(number)
     this.#number = parseInt(number)
   }
   mark() {
@@ -21,6 +21,9 @@ class BingoNumber {
   isMarked() {
     return this.#marked
   }
+  /**
+   * @param {BingoNumberArray} bingoRow
+   */
   set bingoRow(bingoRow) {
     if (bingoRow instanceof BingoNumberArray) {
       this.#bingoRow = bingoRow
@@ -29,6 +32,9 @@ class BingoNumber {
       throw `input parameter is not a BingoNumberArray`
     }
   }
+  /**
+   * @param {BingoNumberArray} bingoCol
+   */
   set bingoCol(bingoCol) {
     if (bingoCol instanceof BingoNumberArray) {
       this.#bingoCol = bingoCol
@@ -43,8 +49,7 @@ class BingoNumber {
   get bingoCol() {
     return this.#bingoCol
   }
-
-  #isNumberValid(number) {
+  isNumberValid(number) {
     if (isNaN(number)) {
       throw `${number} is not a number`
     }
@@ -77,13 +82,10 @@ class BingoCard {
   #rows = new Array()
   #cols = new Array()
   #numbers = new Array()
-  #id = 0
-  static #cardId = 0
+  #complete = false
 
   //Create board by specifying the numbers in a two dimensional array (RowsxCols)
   constructor(inputArray) {
-    this.#id = BingoCard.#cardId++
-
     for (let i = 0; i < inputArray.length; i++) {
       const row = new BingoNumberArray()
       this.#rows.push(row)
@@ -102,6 +104,10 @@ class BingoCard {
         number.bingoRow = col
       }
     }
+  }
+
+  isComplete() {
+    return this.#complete
   }
 
   check(number = undefined, bingoWinCallBack) {
@@ -183,7 +189,22 @@ const solve_part_1 = (inputData, inputUtils) => {
   return result
 }
 const solve_part_2 = (inputData, inputUtils) => {
-  return undefined
+  const parsedData = parseInputData(inputUtils.inputDataToLines(inputData))
+
+  let result = undefined
+  //Let's check each number in all BingoCards
+  for (let i = 0; i < parsedData.numbers.length; i++) {
+    const number = parsedData.numbers[i]
+    for (let j = 0; j < parsedData.cards.length; j++) {
+      const bingoCard = parsedData.cards[j]
+      if (bingoCard.isComplete() == false) {
+        bingoCard.check(number, (bingoCard) => {
+          result = bingoCard.getScore() * number
+        })
+      }
+    }
+  }
+  return result
 }
 
 export { solve_part_1, solve_part_2 }
