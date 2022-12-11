@@ -54,7 +54,7 @@ async function executeAoC(yearToRun, dayToRun, part) {
 
         const files = fs.readdirSync(problemFolder)
         files.forEach((file) => {
-          let day = file.slice(3, -3) // day1.js ==> 1
+          let day = file.slice(3, -3)           // day1.js ==> 1
           let inputFilename = file.slice(0, -3) // day1.js ==> day1
           let inputPath = `${inputFolder}/${inputFilename}`
 
