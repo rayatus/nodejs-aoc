@@ -16,13 +16,9 @@ const solve_part_1 = (inputData, inputUtils) => {
 
     if (!isNaN(snack)) {
       !currentElveCalories ? currentElveCalories = snack : currentElveCalories += snack
-      console.debug(`Adding ${snack} calories to Elve #${currentElve}`)
     } else {
-      //change elve
-      console.debug(`Elve #${currentElve} had ${currentElveCalories} calories`)
-
+      //change elve     
       if (currentElveCalories > maxCalories) {
-        console.debug(`so far it has the more calories`)
         maxCalories = currentElveCalories
         elveWithMoreCalories = currentElve
       }
@@ -33,12 +29,10 @@ const solve_part_1 = (inputData, inputUtils) => {
 
   //Last Elve
   if (currentElveCalories > maxCalories) {
-    console.debug(`so far it has the more calories`)
     maxCalories = currentElveCalories
     elveWithMoreCalories = currentElve
   }
 
-  console.debug(`>>> Elve #${elveWithMoreCalories} was the one carrying up to  ${maxCalories} calories`)
   return maxCalories
 }
 
