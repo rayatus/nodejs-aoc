@@ -8,40 +8,41 @@ import fs from "fs"
 import minimist from "minimist"
 import chalk from "chalk"
 
-const _YEAR_NOT_DEFINED = -1
-const _DAY_NOT_DEFINED = -1
-const _PART_NOT_DEFINED = -1
-
-const args = minimist(process.argv.slice(2))
-let yearToRun = args["year"] || _YEAR_NOT_DEFINED
-let dayToRun = args["day"] || _DAY_NOT_DEFINED
-let part = args["part"] || _PART_NOT_DEFINED
-let help = args["help"]
-
-if (help !== undefined) {
-  showDocumentation()
-} else {
-  //Check if arguments are correct
-  if (
-    (yearToRun != _YEAR_NOT_DEFINED && isValidYear(yearToRun) == false) ||
-    (dayToRun != _DAY_NOT_DEFINED && isValidDay(dayToRun) == false) ||
-    (part != _PART_NOT_DEFINED && isValidPart(part) == false)
-  ) {
-    showDocumentation()
-  } else {
-    executeAoC(yearToRun, dayToRun, part)
-  }
-}
-
 //Some terminal format
 const msgError = chalk.red
 const msgInfo = chalk.blue
 const msgResult = chalk.yellow
 
+const _YEAR_NOT_DEFINED = -1
+const _DAY_NOT_DEFINED = -1
+const _PART_NOT_DEFINED = -1
+
+//entry point
+function main() {
+  const args = minimist(process.argv.slice(2))
+  const yearToRun = args["year"] || _YEAR_NOT_DEFINED
+  const dayToRun = args["day"] || _DAY_NOT_DEFINED
+  const part = args["part"] || _PART_NOT_DEFINED
+  const help = args["help"]
+
+  if (help !== undefined) {
+    showDocumentation()
+  } else {
+    //Check if arguments are correct
+    if (
+      isValidArguments(yearToRun, dayToRun, part)
+    ) {
+      showDocumentation()
+    } else {
+      executeAoC(yearToRun, dayToRun, part)
+    }
+  }
+}
+
 //Executes corresponding exercises
 async function executeAoC(yearToRun, dayToRun, part) {
   try {
-    const inputUtil = await import("./lib/inputUtils.js")
+    const inputUtil = await getAoCModule("./lib/inputUtils.js")
 
     const dir = fs.readdirSync("./")
     for (const dirContent of dir) {
@@ -90,7 +91,7 @@ async function run(modulePath, part, input, inputUtil) {
   let runPart = 0
 
   try {
-    const aocModule = await getAoCModule(modulePath)
+    const aocModule = await import(modulePath)
 
     console.log(`Solving ${msgInfo(modulePath)}`)
     if (part == 1 || part == _PART_NOT_DEFINED) {
@@ -134,6 +135,12 @@ function isValidPart(part) {
   return isValid
 }
 
+//Verifies if CLI arguments are ok
+function isValidArguments(yearToRun, dayToRun, part) {
+  return ((yearToRun != _YEAR_NOT_DEFINED && isValidYear(yearToRun) == false) ||
+    (dayToRun != _DAY_NOT_DEFINED && isValidDay(dayToRun) == false) ||
+    (part != _PART_NOT_DEFINED && isValidPart(part) == false))
+}
 //Returns appDocumentation
 function showDocumentation() {
   console.log(" Please execute it as: aoc.js --year --day --part")
@@ -149,3 +156,6 @@ function showDocumentation() {
   )
   console.log("\nFor instance aoc.js --year 2021 --day 1 --part 1")
 }
+
+//go ahead
+main()
