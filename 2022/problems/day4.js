@@ -24,12 +24,10 @@ const solve_part_1 = (inputData, inputUtils) => {
   return data.filter(row => {
     const groups = row.split(GROUP_SEPARATOR)
 
-
-
     const group1 = CreateGroupObject(groups, 1)
     const group2 = CreateGroupObject(groups, 2)
 
-    //Does Group1 containe Group2 or the other way arround?
+    //Does Group1 contain Group2 or the other way arround?
     return (group1.from <= group2.from && group1.to >= group2.to) || (group2.from <= group1.from && group2.to >= group1.to)
 
   }).length
@@ -47,10 +45,22 @@ const solve_part_2 = (inputData, inputUtils) => {
   const FROM_TO_SEPARATOR = '-'
   const data = inputUtils.inputDataToLines(inputData)
 
-  return data.filter(x => {
+  const result = data.filter(row => {
+    const groups = row.split(GROUP_SEPARATOR)
 
-  }).length
+    const group1 = CreateGroupObject(groups, 1)
+    const group2 = CreateGroupObject(groups, 2)
 
+    //Does Group1 overlaps Group2 or the other way arround?
+    return (
+      (group1.from <= group2.from && group2.from <= group1.to) ||
+      (group1.from <= group2.to && group2.to <= group1.to) ||
+      (group2.from <= group1.from && group1.from <= group2.to) ||
+      (group2.from <= group1.to && group1.to <= group2.to)
+    )
+
+  })
+  return result.length
 }
 
 export { solve_part_1, solve_part_2 }
