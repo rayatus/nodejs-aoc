@@ -19,6 +19,6 @@ describe("Test AoC 2022 Day 3", () => {
     expect(day.solve_part_1(inputData, inputUtils)).equal(157)
   })
   it("Part 2", () => {
-    expect(day.solve_part_2(inputData, inputUtils)).equal(12)
+    expect(day.solve_part_2(inputData, inputUtils)).equal(70)
   })
 })
