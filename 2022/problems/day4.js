@@ -40,9 +40,6 @@ const solve_part_1 = (inputData, inputUtils) => {
 */
 const solve_part_2 = (inputData, inputUtils) => {
 
-
-  const GROUP_SEPARATOR = ','
-  const FROM_TO_SEPARATOR = '-'
   const data = inputUtils.inputDataToLines(inputData)
 
   const result = data.filter(row => {
