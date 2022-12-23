@@ -40,12 +40,9 @@ const solve_part_1 = (inputData, inputUtils) => {
 */
 const solve_part_2 = (inputData, inputUtils) => {
 
-
-  const GROUP_SEPARATOR = ','
-  const FROM_TO_SEPARATOR = '-'
   const data = inputUtils.inputDataToLines(inputData)
 
-  const result = data.filter(row => {
+  return data.filter(row => {
     const groups = row.split(GROUP_SEPARATOR)
 
     const group1 = CreateGroupObject(groups, 1)
@@ -59,8 +56,7 @@ const solve_part_2 = (inputData, inputUtils) => {
       (group2.from <= group1.to && group1.to <= group2.to)
     )
 
-  })
-  return result.length
+  }).length
 }
 
 export { solve_part_1, solve_part_2 }
