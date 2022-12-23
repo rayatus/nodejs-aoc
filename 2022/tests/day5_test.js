@@ -7,8 +7,8 @@ const inputUtils = await import("../../lib/inputUtils.js")
 const testUtil = await import("../../lib/testInputUtils.js")
 
 const TestData = new testUtil.TestData()
-let __testFileName = __filename.replace("day5_test.js", "day5_test_data.txt")
-const inputData = TestData.addFromFile(__testFileName).get()
+const __testFileName = __filename.replace("day5_test.js", "day5_test_data.txt")
+const inputData = TestData.addFromFile(__testFileName).get(false)
 
 const metadata = TestData.getTestMetadata(__filename)
 const day = await import(metadata.pathToProblem)
