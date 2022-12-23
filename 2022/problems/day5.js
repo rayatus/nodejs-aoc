@@ -5,7 +5,6 @@ export { solve_part_1, solve_part_2 }
 */
 const solve_part_1 = (inputData, inputUtils) => {
 
-
   const data = initialize(inputUtils.inputDataToLines(inputData))
 
   data.instructions.forEach(instruction => {
@@ -20,12 +19,10 @@ const solve_part_1 = (inputData, inputUtils) => {
     }
   });
 
-  let result = ''
-  for (let index = 0; index < data.stack.length; index++) {
-    const element = data.stack[index];
-    result += element[0]
-  }
-  return result.trim()
+  //from each element we take the 1st index resulting in an array
+  //and then just join that array's values together for having an string
+  return data.stack.map(x => x[0]).join('')
+
 }
 
 /*
@@ -66,7 +63,7 @@ function initInstructions(row, instructions) {
 
 //at Array's top position will be the content which it is at the top of the stack
 function initStack(row, stack) {
-  const parsedStack = (parseStack(row));
+  const parsedStack = parseStack(row);
   if (stack.length == 0) {
     parsedStack.forEach(element => {
       stack.push(new Array())
@@ -80,7 +77,7 @@ function initStack(row, stack) {
 }
 
 // initializes instructions following pattern 'move 1 from 2 to 1'
-function parseInstructions(row, instructions) {
+function parseInstructions(row) {
   const aRow = row.split(' ')
   return {
     quantity: parseInt(aRow[1]),
@@ -89,9 +86,19 @@ function parseInstructions(row, instructions) {
   }
 }
 
-function parseStack(row, parsedStack) {
+function parseStack(row) {
+
+  //1st lets deconstruct STRING into ARRAY
+  //2nd lets find every single CHAR in that ARRAY located at indexes where INDEX % 4 === 1 so, indexes: 1, 5, 9, ...
+  //3rd delete CONDENSE 
+  return [...row].filter((value, index) => index % 4 === 1).map(x => x.trim())
+
+  /*
+  This "original code" gets replaced by previous line 
+
   const aRow = Array.from(row)
   const aRowContent = new Array()
+
   let pos = 0
   let content = ''
   aRow.map(element => {
@@ -108,6 +115,7 @@ function parseStack(row, parsedStack) {
   })
   aRowContent.push(content.trim())
   return aRowContent
+  */
 }
 
 
