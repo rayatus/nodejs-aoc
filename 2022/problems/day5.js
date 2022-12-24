@@ -29,7 +29,28 @@ const solve_part_1 = (inputData, inputUtils) => {
   
 */
 const solve_part_2 = (inputData, inputUtils) => {
-  return null
+  const data = initialize(inputUtils.inputDataToLines(inputData))
+
+  data.instructions.forEach(instruction => {
+    const fromArray = data.stack[instruction.fromStack - 1]
+    const toArray = data.stack[instruction.toStack - 1]
+
+    //splice() => removes/add : returns an array with the removed elements
+    // 1st param index from where to add/remove
+    // 2nd (optional) param number of elements to remove
+    // 3rd (optional) param element's to add
+    fromArray.splice(0, instruction.quantity)
+      //as UNSHIFT() adds always at the beginig of the index... either we iterate ELEMENTS from END to START 
+      //or we just reverse them 
+      .reverse()
+      //now just add at the begining of the array
+      .map(x => toArray.unshift(x))
+
+  });
+
+  //from each element we take the 1st index resulting in an array
+  //and then just join that array's values together for having an string
+  return data.stack.map(x => x[0]).join('')
 }
 
 

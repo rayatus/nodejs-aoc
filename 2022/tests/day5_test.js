@@ -18,6 +18,6 @@ describe(`Test AoC ${metadata.year} Day ${metadata.day}`, () => {
     expect(day.solve_part_1(inputData, inputUtils)).equal("CMZ")
   })
   it("Part 2", () => {
-    expect(day.solve_part_2(inputData, inputUtils)).equal(4)
+    expect(day.solve_part_2(inputData, inputUtils)).equal("MCD")
   })
 })
