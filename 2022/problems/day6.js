@@ -25,7 +25,20 @@ const solve_part_1 = (inputData, inputUtils) => {
   
 */
 const solve_part_2 = (inputData, inputUtils) => {
-  return null
+  const _GROUP = 13
+
+  let result = null
+  const data = [...inputData]
+
+  for (let index = _GROUP; index < data.length; index++) {
+    const marker = data.slice(index - _GROUP, index + 1)
+
+    if (!hasDuplicatedElements(marker)) {
+      result = index + 1
+      break
+    }
+  }
+  return result
 }
 
 
