@@ -17,8 +17,8 @@
   },
   "scripts": {
     "runAll": "node aoc.js",
-    "run": "node aoc.js --year 2022 --day 5",
-    "test": "mocha ./2022/tests/day5_test.js",
+    "run": "node aoc.js --year 2022 --day 6",
+    "test": "mocha ./2022/tests/day6_test.js",
     "allTests": "mocha ./**/tests/*test.js",
     "help": "node aoc.js --help"
   },
